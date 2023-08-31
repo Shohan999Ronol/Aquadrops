@@ -35,42 +35,11 @@ include('login_check.php');
 
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">
-      <a href="./index.php"><img src="frontend/img/download.jfif" alt="Company Logo" style="width: 90px; height: 100px;">
-      </a>
-    </div>
-    <nav class="navbar-icons">
-      <a href="./products.php"><img src="frontend/img/product.png" alt="Products">Products</a>
-      <a href="./aboutUs.php"><img src="frontend/img/contact-us.png" alt="Products">ABOUT US</a>
-      <?php if ($userLoggedIn) : ?>
-        <a href="./cart.php"><img src="frontend/img/grocery-store.png" alt="Cart">Cart</a>
-        <a  class="nav-link p-0 pr-3" data-toggle="dropdown" href="#"><img src="frontend/img/avatar.png" alt="Dashboard">
-                                    <?php echo $user_name ?>
-                                </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
-							<h4 class="h4 mb-0"><strong><?php echo $user_name ?></strong></h4>
-							<div class="mb-3"><?php echo $user_email ?></div>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item">
-								<i class="fas fa-user-cog mr-2"></i> Settings								
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item">
-								<i class="fas fa-lock mr-2"></i> Change Password
-							</a>
-							<div class="dropdown-divider"></div>
-							<a href="#" class="dropdown-item text-danger" id="logout-button">
-    						<i class="fas fa-sign-out-alt mr-2"></i> Logout
-							</a>
-						</div>
-    <?php else : ?>
-        <a href="./login.php"><img src="frontend/img/avatar.png" alt="Login">LogIn</a>
-    <?php endif; ?>
-</nav>
-  </header>
-
-
+ <?php 
+ 
+  include('header.php');
+ 
+ ?>
 
 <!-- slider -->
   <section class="slider-container">
@@ -183,51 +152,11 @@ include('login_check.php');
     </ol>
   </section>
 
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-left">
-          <a href="https://www.facebook.com/bisleriindia"><img src="frontend/img/fb-logo.jpg" alt="Facebook"></a>
-          <a href="https://www.instagram.com/bisleriindia/"><img src="frontend/img/insta.jpg" alt="Instagram"></a>
-          <a href="https://twitter.com/bisleriindia"><img src="frontend/img/twit.png" alt="Twitter"></a>
-        </div>
-        <div class="ahsan-magi">
-          <div class="footer-center">
-            <img src="frontend/img/download.jfif" alt="AQUA DROPS Logo" class="logo-image">
-            <p>aqua@Doorstep</p>
-            <p>123 Main Street, Anytown, CA 12345</p>
-            <p>Phone: (123) 456-7890</p>
-            <p>Email: info@aqua.com</p>
-          </div>
-        </div>
-        <div class="footer-right">
-         <a href="">About Us</a>
-          <a href="#">Contact Us</a>
-          <a href="#">Terms of Service</a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-
+<
 
 <!-- JavaScript -->
-
-<script src="frontend/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="frontend/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="frontend/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="frontend/js/demo.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+ <?php
+    include('footer.php');
+    ?>
 </body>
 </html>

@@ -1,41 +1,42 @@
-
-<footer>
-<div class="container">
-<div class="footer-content">
-<div class="footer-left">
-<a href="https://www.facebook.com/bisleriindia"><img src="frontend/img/fb-logo.jpg" alt="Facebook"></a>
-<a href="https://www.instagram.com/bisleriindia/"><img src="frontend/img/insta.jpg" alt="Instagram"></a>
-<a href="https://twitter.com/bisleriindia"><img src="frontend/img/twit.png" alt="Twitter"></a>
-</div>
-
-
-<div class="footer-center">
-<div class="aqlogo">
-<img src="frontend/img/download.jfif" alt="AQUA DROPS Logo" class="logo-image">
-</div>
-<div class="address">
-<p>aqua@Doorstep</p>
-<p>123 Main Street, Anytown, CA 12345</p>
-<p>Phone: (123) 456-7890</p>
-<p>Email: info@aqua.com</p>
-</div>
-</div>
-<div class="footer-right">
-<a href="">About Us</a>
-<a href="#">Contact Us</a>
-<a href="#">Terms of Service</a>
-</div>
-</div>
-</div>
+<footer class="bg-dark text-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mt-4 text-center">
+                <div class="footer-left d-flex align-items-center justify-content-center">
+                    <a href="https://www.facebook.com/bisleriindia"><img src="frontend/img/fb-logo.jpg" alt="Facebook" class="mr-2 img-fluid" style="height: 40px;"></a>
+                    <a href="https://www.instagram.com/bisleriindia/"><img src="frontend/img/insta.jpg" alt="Instagram" class="mr-2 img-fluid" style="height: 40px;"></a>
+                    <a href="https://twitter.com/bisleriindia"><img src="frontend/img/twit.png" alt="Twitter" class="mr-2 img-fluid" style="height: 40px;"></a>
+                </div>
+            </div>
+            <div class="col-md-4 mt-4 text-center">
+                <div class="footer-center">
+                    <div class="aqlogo mb-3">
+                        <img src="frontend/img/download.jfif" alt="AQUA DROPS Logo" class="logo-image"style="max-height: 90px;">
+                    </div>
+                    <div class="address">
+                        <p>aqua@Doorstep</p>
+                        <p>123 Main Street, Anytown, CA 12345</p>
+                        <p>Phone: (123) 456-7890</p>
+                        <p>Email: info@aqua.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-4 text-center">
+                <div class="footer-right mt-md-0">
+                    <a href="#" class="mr-3">About Us</a>
+                    <a href="#" class="mr-3">Contact Us</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
+
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Your custom scripts -->
+<script src="your-custom-scripts.js"></script>
 </body>
 </html>
-
-
-<script src="frontend/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="frontend/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="frontend/js/demo.js"></script>
