@@ -1,0 +1,182 @@
+/* Reset some default styles */
+body, h1, h2, h3, h4, h5, h6, p, ul, ol {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Global Styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  /* Breadcrumb */
+  .breadcrumb {
+    background-color: transparent;
+    list-style: none;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+  
+  .breadcrumb-item {
+    display: inline;
+    margin-right: 10px;
+  }
+  
+  .breadcrumb-item a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  /* Cart Table */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .table th, .table td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .table th {
+    background-color: #f5f5f5;
+    text-align: left;
+  }
+  
+  .table img {
+    max-width: 50px;
+    max-height: 50px;
+    margin-right: 10px;
+  }
+  
+  /* Button Styles */
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-dark {
+    background-color: #333;
+    color: white;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .navbar a {
+      margin: 10px 0;
+    }
+  
+    .navbar-icons {
+      margin-top: 10px;
+    }
+  
+    .breadcrumb {
+      font-size: 12px;
+    }
+  
+    .table img {
+      max-width: 30px;
+      max-height: 30px;
+      margin-right: 5px;
+    }
+  
+    .apply-coupan input[type="text"] {
+      width: 60%;
+    }
+  }
+  /* Add this CSS code to your existing stylesheet or in a <style> tag in your HTML */
+
+/* Styling for the cart summary and coupon section */
+.cart-summary {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sub-title {
+  margin-bottom: 15px;
+}
+
+.sub-title h2 {
+  background-color: #fff;
+  padding: 5px 10px;
+  display: inline-block;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.cart-summary .d-flex {
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-summary .d-flex:last-child {
+  border-bottom: none;
+}
+
+.apply-coupon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.apply-coupon .form-control {
+  flex: 1;
+  margin-right: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.apply-coupon .btn-dark {
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+
+/* Styling for the Proceed to Checkout button */
+.pt-5 .btn-dark {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pt-5 .btn-dark:hover {
+  background-color: #222;
+}
