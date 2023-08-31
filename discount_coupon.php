@@ -243,7 +243,7 @@ CREATE TABLE coupons (
 			<!-- /.content-wrapper -->
 			<footer class="main-footer">
 				
-				<strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
+				<strong>Copyright &copy; @shohan All rights reserved.
 			</footer>
 			
 		</div>
