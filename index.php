@@ -9,12 +9,30 @@ include('login_check.php');
 <head>
   <!-- Meta tags and title -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Company Navigation Bar</title>
-  <link rel="stylesheet" href="frontend/style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="frontend/style.css">
+        <link rel="stylesheet" href="frontend/cart.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="frontend/plugins/fontawesome-free/css/all.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="frontend/css/adminlte.min.css">
+        <link rel="stylesheet" href="frontend/css/custom.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Include Slick Slider CSS and JS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+         <!-- bootstrap -->
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
 </head>
 <body>
   <header class="navbar">
@@ -23,26 +41,73 @@ include('login_check.php');
       </a>
     </div>
     <nav class="navbar-icons">
-    <?php if ($userLoggedIn) : ?>
+      <a href="./products.php"><img src="frontend/img/product.png" alt="Products">Products</a>
+      <a href="./aboutUs.php"><img src="frontend/img/contact-us.png" alt="Products">ABOUT US</a>
+      <?php if ($userLoggedIn) : ?>
         <a href="./cart.php"><img src="frontend/img/grocery-store.png" alt="Cart">Cart</a>
-        <a href="./userDashboard.php"><img src="frontend/img/avatar.png" alt="Dashboard">Dashboard</a>
+        <a  class="nav-link p-0 pr-3" data-toggle="dropdown" href="#"><img src="frontend/img/avatar.png" alt="Dashboard">
+                                    <?php echo $user_name ?>
+                                </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
+							<h4 class="h4 mb-0"><strong><?php echo $user_name ?></strong></h4>
+							<div class="mb-3"><?php echo $user_email ?></div>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item">
+								<i class="fas fa-user-cog mr-2"></i> Settings								
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item">
+								<i class="fas fa-lock mr-2"></i> Change Password
+							</a>
+							<div class="dropdown-divider"></div>
+							<a href="#" class="dropdown-item text-danger" id="logout-button">
+    						<i class="fas fa-sign-out-alt mr-2"></i> Logout
+							</a>
+						</div>
     <?php else : ?>
         <a href="./login.php"><img src="frontend/img/avatar.png" alt="Login">LogIn</a>
     <?php endif; ?>
-    <a href="./products.php"><img src="frontend/img/product.png" alt="Products">Products</a>
-    <a href="./aboutUs.php"><img src="frontend/img/contact-us.png" alt="Products">ABOUT US</a>
 </nav>
   </header>
 
+
+
+<!-- slider -->
   <section class="slider-container">
-    <div class="slider">
-      <div class="slider">
-        <div><img src="frontend/img/add.jpg" alt="Ad 1"></div>
-        <div><img src="frontend/img/add1.jpg" alt="Ad 2"></div>
-        <div><img src="frontend/img/add2.jpg" alt="Ad 3"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="slider" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider" data-slide-to="0" class="active"></li>
+                        <li data-target="#slider" data-slide-to="1"></li>
+                        <li data-target="#slider" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="frontend/img/add.jpg" alt="Ad 1" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="frontend/img/add1.jpg" alt="Ad 2" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="frontend/img/add2.jpg" alt="Ad 3" class="d-block w-100">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-  </section>
+</section>
+
 
   <!-- Subscribe section -->
   <section class="subscribe-section">
@@ -147,22 +212,22 @@ include('login_check.php');
 
 
 <!-- JavaScript -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<script>
-  // Initialize the Slick Slider
-  $(document).ready(function(){
-    $('.slider').slick({
-      dots: true,
-      infinite: true,
-      speed: 500,
-      autoplay: true,
-      autoplaySpeed: 3000,
-      slidesToShow: 1,
-      slidesToScroll: 1
-    });
-  });
-</script>
+
+<script src="frontend/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="frontend/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="frontend/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="frontend/js/demo.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

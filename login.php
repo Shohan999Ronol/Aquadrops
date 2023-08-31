@@ -73,6 +73,8 @@ $connection->close();
     <!-- Theme style -->
     <link rel="stylesheet" href="frontend/css/adminlte.min.css">
     <link rel="stylesheet" href="frontend/css/custom.css">
+     <!-- bootstrap -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">

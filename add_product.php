@@ -52,6 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<!-- Theme style -->
 		<link rel="stylesheet" href="frontend/css/adminlte.min.css">
 		<link rel="stylesheet" href="frontend/css/custom.css">
+		 <!-- bootstrap -->
+		 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 		<style>
     form {
         max-width: 600px;

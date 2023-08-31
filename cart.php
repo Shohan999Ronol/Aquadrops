@@ -1,6 +1,46 @@
 <?php
 
 include('login_check.php');
+// Add your database connection code here
+include('connection.php');
+
+// Remove single items from cart
+if (isset($_GET['remove'])) {
+    $id = $_GET['remove'];
+
+    $stmt = $conn->prepare('DELETE FROM cart WHERE id=?');
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+
+    $_SESSION['showAlert'] = 'block';
+    $_SESSION['message'] = 'Item removed from the cart!';
+    header('location:cart.php');
+    exit();
+}
+
+
+// Remove all items at once from cart
+if (isset($_GET['clear'])) {
+    $stmt = $conn->prepare('DELETE FROM cart');
+    $stmt->execute();
+    $_SESSION['showAlert'] = 'block';
+    $_SESSION['message'] = 'All Item removed from the cart!';
+    header('location:cart.php');
+    exit();
+}
+
+// Update quantity and total price of the product in the cart table
+if (isset($_POST['qty'])) {
+    $qty = $_POST['qty'];
+    $pid = $_POST['pid'];
+    $pprice = $_POST['pprice'];
+
+    $tprice = $qty * $pprice;
+
+    $stmt = $conn->prepare('UPDATE cart SET quantity=?, total_price=? WHERE id=?');
+    $stmt->bind_param('isi', $qty, $tprice, $pid);
+    $stmt->execute();
+}
 
 ?>
     <!DOCTYPE html>
@@ -25,6 +65,8 @@ include('login_check.php');
         <!-- Theme style -->
         <link rel="stylesheet" href="frontend/css/adminlte.min.css">
         <link rel="stylesheet" href="frontend/css/custom.css">
+         <!-- bootstrap -->
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
         <body>
             <?php 
@@ -48,7 +90,7 @@ include('login_check.php');
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
+                                        <?php
                                         include('connection.php');
 
                                         $cartSql = "SELECT * FROM cart WHERE user_id = '$user_id'";
@@ -67,11 +109,14 @@ include('login_check.php');
                                                 echo '</td>';
                                                 echo '<td>' . $cartItem["price"] . '</td>';
                                                 echo '<td>';
+                                                echo '<form action="" method="post">';
+                                                echo '<input type="hidden" name="pid" value="' . $cartItem["id"] . '">';
+                                                echo '<input type="hidden" name="pprice" value="' . $cartItem["price"] . '">';
                                                 echo '<div class="input-group quantity mx-auto" style="width: 100px;">';
                                                 echo '<div class="input-group-btn">';
                                                 echo '<button class="btn btn-sm btn-dark btn-minus p-2 pt-1 pb-1" data-id="' . $cartItem["id"] . '"><i class="fa fa-minus"></i></button>';
                                                 echo '</div>';
-                                                echo '<input type="number" class="form-control form-control-sm border-0 text-center quantity-input" value="' . $cartItem["quantity"] . '" data-id="' . $cartItem["id"] . '">';
+                                                echo '<input type="number" class="form-control form-control-sm border-0 text-center quantity-input" value="' . $cartItem["quantity"] . '" data-id="' . $cartItem["id"] . '" name="qty">';
                                                 echo '<div class="input-group-btn">';
                                                 echo '<button class="btn btn-sm btn-dark btn-plus p-2 pt-1 pb-1" data-id="' . $cartItem["id"] . '"><i class="fa fa-plus"></i></button>';
                                                 echo '</div>';
@@ -79,15 +124,18 @@ include('login_check.php');
                                                 echo '</td>';
                                                 echo '<td>' . ($cartItem["price"] * $cartItem["quantity"]) . '</td>';
                                                 echo '<td>';
-                                                echo '<button class="btn btn-sm btn-danger btn-remove" data-id="' . $cartItem["id"] . '"><i class="fa fa-times"></i></button>';
+                                                echo '<a href="cart.php?remove=' . $cartItem['id'] . '" class="text-danger lead" onclick="return confirm(\'Are you sure you want to remove this item?\');"><i class="fas fa-trash-alt"></i></a>';
                                                 echo '</td>';
+                                                echo '</form>'; // Close the form
                                                 echo '</tr>';
                                                 $totalAmount += $cartItem["price"] * $cartItem["quantity"];
                                             }
                                         } else {
                                             echo '<tr><td colspan="5">Your cart is empty.</td></tr>';
+                                            $totalAmount=0;
                                         }
                                         ?>
+
 
                                         </tbody>
                                     </table>
@@ -131,17 +179,12 @@ include('login_check.php');
             </main>
             <?php
     include('footer.php');
+    $conn->close();
 ?>
 
                 <!-- ./wrapper -->
                 <!-- jQuery -->
-                <script src="frontend/plugins/jquery/jquery.min.js"></script>
-                <!-- Bootstrap 4 -->
-                <script src="frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <!-- AdminLTE App -->
-                <script src="frontend/js/adminlte.min.js"></script>
-                <!-- AdminLTE for demo purposes -->
-                <script src="frontend/js/demo.js"></script>
+
                 <script>
                     document.getElementById('logout-button').addEventListener('click', function() {
                         // Redirect to the logout page
@@ -182,45 +225,8 @@ include('login_check.php');
                             });
                         });
 
-                        removeButtons.forEach(button => {
-                            button.addEventListener('click', function() {
-                                const id = this.getAttribute('data-id');
-                                // Implement AJAX or similar to remove the item from the cart
-                                // After successful removal, you might want to update the cart contents
-                            });
-                        });
                     });
-
-                        document.addEventListener('DOMContentLoaded', function() {
-                            // ... (previous JavaScript code)
-                        
-                            quantityInputs.forEach(input => {
-                                input.addEventListener('change', function() {
-                                    const id = this.getAttribute('data-id');
-                                    const price = parseFloat(document.querySelector(`td[data-price-id="${id}"]`).innerText);
-                                    const newQuantity = parseInt(this.value);
-                                    const newTotal = price * newQuantity;
-                                    const totalCell = document.querySelector(`td[data-total-id="${id}"]`);
-                                    totalCell.innerText = newTotal.toFixed(2);
-                        
-                                    // Recalculate the totalAmount
-                                    totalAmount = 0;
-                                    document.querySelectorAll('.quantity-input').forEach(input => {
-                                        const itemPrice = parseFloat(document.querySelector(`td[data-price-id="${input.getAttribute('data-id')}"]`).innerText);
-                                        totalAmount += itemPrice * parseInt(input.value);
-                                    });
-                        
-                                    document.querySelector('#subtotal-amount').innerText = totalAmount.toFixed(2);
-                                    document.querySelector('#total-amount').innerText = (totalAmount + 20).toFixed(2);
-                                });
-                            });
-                        
-                            // ... (rest of the JavaScript code)
-                        });
-                        
-                </script>
-
-
+          </script>
 
         </body>
 

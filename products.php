@@ -1,11 +1,5 @@
 <?php
-session_start();
-$userLoggedIn = false; // Assume user is not logged in by default
-
-// Check if the user is logged in
-if (isset($_SESSION['user_id'])) {
-    $userLoggedIn = true;
-}
+ include('login_check.php');
 
 // Initialize the cart in the session if not already done
 if (!isset($_SESSION['cart'])) {
@@ -44,15 +38,30 @@ if (isset($_POST['add_to_cart'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags and title -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
-    <link rel="stylesheet" href="frontend/products.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+        
+        <!-- Meta tags and title -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="frontend/style.css">
+        <link rel="stylesheet" href="frontend/cart.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="frontend/plugins/fontawesome-free/css/all.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="frontend/css/adminlte.min.css">
+        <link rel="stylesheet" href="frontend/css/custom.css">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        
+        <title>Products</title>
     <style>
+        
         /* Add this CSS to your existing style.css or in a <style> tag in your HTML */
         .product-listing {
             display: grid;
@@ -69,23 +78,14 @@ if (isset($_POST['add_to_cart'])) {
     </style>
 </head>
 <body>
-<header class="navbar">
-    <div class="logo">
-      <a href="./index.php"><img src="frontend/img/download.jfif" alt="Company Logo" style="width: 90px; height: 100px;">
-      </a>
-    </div>
-    <nav class="navbar-icons">
-    <?php if ($userLoggedIn) : ?>
-        <a href="./cart.php"><img src="frontend/img/grocery-store.png" alt="Cart">Cart</a>
-        <a href="./userDashboard.php"><img src="frontend/img/avatar.png" alt="Dashboard">Dashboard</a>
-    <?php else : ?>
-        <a href="./login.php"><img src="frontend/img/avatar.png" alt="Login">LogIn</a>
-    <?php endif; ?>
-    <a href="./products.php"><img src="frontend/img/product.png" alt="Products">Products</a>
-    <a href="./aboutUs.php"><img src="frontend/img/contact-us.png" alt="Products">ABOUT US</a>
-</nav>
-  </header>
-    <section class="product-section">
+
+<?php 
+    include('header.php');
+?>
+
+
+
+<section class="product-section">
         <?php
         // Database configuration
         $host = "localhost";
@@ -145,30 +145,9 @@ if (isset($_POST['add_to_cart'])) {
         $conn->close();
         ?>
     </section>
-<footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-left">
-          <a href="https://www.facebook.com/bisleriindia"><img src="frontend/img/fb-logo.jpg" alt="Facebook"></a>
-          <a href="https://www.instagram.com/bisleriindia/"><img src="frontend/img/insta.jpg" alt="Instagram"></a>
-          <a href="https://twitter.com/bisleriindia"><img src="frontend/img/twit.png" alt="Twitter"></a>
-        </div>
-        <div class="ahsan-magi">
-          <div class="footer-center">
-            <img src="frontend/img/download.jfif" alt="AQUA DROPS Logo" class="logo-image">
-            <p>aqua@Doorstep</p>
-            <p>123 Main Street, Anytown, CA 12345</p>
-            <p>Phone: (123) 456-7890</p>
-            <p>Email: info@aqua.com</p>
-          </div>
-        </div>
-        <div class="footer-right">
-         <a href="">About Us</a>
-          <a href="#">Contact Us</a>
-          <a href="#">Terms of Service</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+<?php 
+    include('footer.php');
+    ?>
+
 </body>
 </html>
