@@ -42,7 +42,7 @@ include('login_check.php');
  ?>
 
 <!-- slider -->
-  <section class="slider-container">
+  <section class="slider-container m-4">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -84,7 +84,6 @@ include('login_check.php');
     <p>Stay Hydrated!</p>
     <a href="./subscribe.php" class="subscribe-button">Subscribe</a>
 </section>
-
 
   <!-- Product listing section -->
 <section class="product-listing">

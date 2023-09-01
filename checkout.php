@@ -127,9 +127,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <div class="mb-3">
                                             <label for="payment_method" class="form-label">Payment Method</label>
                                             <select class="form-control" id="payment_method" name="payment_method" required>
-                                            <option value="cash">Cash on Delivery</option>
-                                            <option value="card">Credit Card</option>
-                                            <option value="bkash">bKash</option>
+                                            <option value="Cash on Delivery">Cash on Delivery</option>
+                                            <option value="Credit Card">Credit Card</option>
+                                            <option value="Bkash">BKash</option>
                                         </select>
                                         </div>
                                         <button type="submit" class="btn btn-dark btn-block">Place Order</button>

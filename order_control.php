@@ -176,41 +176,49 @@ if ($result->num_rows > 0) {
 				<!-- /.sidebar -->
          	</aside>
 			<!-- Content Wrapper. Contains page content -->
-			<div class="content-wrapper">
-				<!-- Main content -->
-				<section class="content">
-					<!-- Default box -->
-
-                    
-
-                                                        
-                    <div class="container mt-5">
+			<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="container mt-5">
         <h2 class="mb-4">Admin Dashboard - Orders</h2>
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
-            <thead>
-    <tr>
-        <th>Order ID</th>
-        <th>Contact</th>
-        <th>Address</th>
-        <th>Payment Method</th>
-        <th>Product List</th>
-        <th class="col-md-2 ">Order Date</th>
-        <th>Current Status</th> <!-- Apply col-md-2 class here -->
-        <th class="col-md-2 ">Update Status</th>
-    </tr>
-</thead>
-<tbody>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th >Contact</th>
+                        <th class="col-md-2">Address</th>
+                        <th class="col-md-2">Payment Method</th>
+                        <th class="col-md-2">Product List</th>
+                        <th class="col-md-2">Order Date</th>
+                        <th class="col-md-2">Current Status</th>
+                        <!-- Apply col-md-2 class here -->
+                        <th class="col-md-2">Update Status</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <?php foreach ($orders as $order) : ?>
                         <tr>
                             <td><?php echo $order['id']; ?></td>
-                            <td><?php echo "Name:".$order['name'] . "<br>" ."Email:". $order['email'] . "<br>" . "Contact:".$order['contact_no']; ?></td>
+                            <td>
+                                <?php echo "Name:" . $order['name'] . "<br>" . "Email:" . $order['email'] . "<br>" . "Contact:" . $order['contact_no']; ?>
+                            </td>
                             <td><?php echo $order['address']; ?></td>
                             <td><?php echo $order['payment_method']; ?></td>
-                            <td><?php echo $order['product_list']; ?></td>
+                            <td>
+                                <?php
+                                // Decode the JSON string into an array
+                                $productList = json_decode($order['product_list'], true);
+
+                                // Iterate through the products and display them
+                                foreach ($productList as $product) {
+                                    echo $product['product_name'] . "-" . $product['quantity'] . "x <br>";
+                                }
+                                ?>
+                            </td>
                             <td><?php echo date('l, d-m-Y', strtotime($order['order_date'])); ?></td>
                             <td><?php echo $order['status']; ?></td>
-                                <td class="col-md-2 text-center">
+                            <td class="col-md-2 text-center">
                                 <form method="post">
                                     <select name="new_status" class="form-control form-control-sm">
                                         <option value="Ordered">Ordered</option>
@@ -218,19 +226,24 @@ if ($result->num_rows > 0) {
                                         <option value="On the Way">On the Way</option>
                                         <option value="Delivered">Delivered</option>
                                     </select>
-                                <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
-                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                    <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                   
+									<button type="submit" class="btn btn-dark btn-sm m-2">
+											<span class="mr-1">Update</span>
+											<i class="fas fa-sync-alt"></i> <!-- Add an icon for the update action (using Font Awesome) -->
+										</button>
+
+
                                 </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-
             </table>
         </div>
     </div>
-                        
-                </section>
+</section>
+
 				<!-- /.content -->
     </div>
 			<!-- /.content-wrapper -->
@@ -238,8 +251,8 @@ if ($result->num_rows > 0) {
 				
 				<strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
 			</footer>
+		</div>
 			
-</div>
 		<!-- ./wrapper -->
 		<!-- jQuery -->
 		<script src="frontend/plugins/jquery/jquery.min.js"></script>

@@ -98,8 +98,20 @@ if ($result->num_rows > 0) {
                 <div class="card mb-3">
                     <div class="card-body ">
                         <h5 class="card-title">Order ID: <?php echo $row['id']; ?></h5>
-                        <p class="card-text">Order Date: <?php echo $row['order_date']; ?></p>
-                        <p class="card-text">Status: <?php echo $row['status']; ?></p>
+                        <h6 class="card-text">Order Date: <?php echo $row['order_date']; ?></h6>
+                         <!-- Display the product list for this order -->
+                         <div>
+                            <h6>Product List:</h6>
+                            <?php
+                            // Decode the JSON string into an array
+                            $productList = json_decode($row['product_list'], true);
+
+                            // Iterate through the products and display them
+                            foreach ($productList as $product) {
+                                echo "* " .$product['product_name'] . " - " . $product['quantity'] . "x <br>";
+                            }
+                            ?>
+                        </div>
                         
                         <!-- Create a custom progress bar based on the order status -->
                         <div class="custom-progress">
