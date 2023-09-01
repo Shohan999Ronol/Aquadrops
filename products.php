@@ -69,6 +69,7 @@ if (isset($_POST['add_to_cart'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         
         <title>Products</title>
+        
 </head>
 <body>
 

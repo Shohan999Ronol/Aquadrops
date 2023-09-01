@@ -99,7 +99,7 @@ if (isset($_POST['qty'])) {
                                                 echo '<tr>';
                                                 echo '<td>';
                                                 echo '<div class="d-flex align-items-center justify-content-center">';
-                                                echo '<img src="'. $cartItem["image_url"] . '" alt="' . $cartItem["product_name"] . '" class="cart-item-image" style="max-width: 800px;">';
+                                                echo '<img src="'. $cartItem["image_url"] . '" alt="' . $cartItem["product_name"] . '" class="cart-item-image" style="max-width: 80px;">';
                                                 echo '<h3>' . $cartItem["product_name"] . '</h3>';
                                                 echo '</div>';
                                                 echo '</td>';
@@ -145,18 +145,20 @@ if (isset($_POST['qty'])) {
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between pb-2">
                                             <div>Subtotal</div>
-                                            <div>$
+                                            <div>
                                                 <?php echo $totalAmount; ?>
-                                            </div>
+                                            tk
+                                        </div>
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <div>Shipping</div>
-                                            <div>$20</div>
+                                            <div>20 tk</div>
                                         </div>
                                         <div class="d-flex justify-content-between summery-end">
                                             <div>Total</div>
-                                            <div>$
+                                            <div>
                                                 <?php echo $totalAmount + 20; ?>
+                                                tk
                                             </div>
                                         </div>
                                         <div class="pt-5">
@@ -170,6 +172,8 @@ if (isset($_POST['qty'])) {
                                 </div>
                             </div>
                         </div>
+                        <br>
+                        <br><br><br><br><br><br><br>
                     </div>
                 </section>
             </main>

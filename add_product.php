@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 								</a>
 							</li>							
 							<li class="nav-item">
-								<a href="orders.html" class="nav-link">
+								<a href="order_control.php" class="nav-link">
 									<i class="nav-icon fas fa-shopping-bag"></i>
 									<p>Orders</p>
 								</a>

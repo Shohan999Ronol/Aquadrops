@@ -1,15 +1,5 @@
 <?php
-// Database configuration
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = 'watersupplyphp';
-
-$conn = new mysqli($host, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include('connection.php');
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,8 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($conn->query($sql) === TRUE) {
         echo "Data inserted successfully.";
+        header("location:aboutUS.php");
+        exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
+        header("location:aboutUS.php");
+        exit();
     }
 }
 

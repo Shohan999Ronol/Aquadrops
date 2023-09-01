@@ -45,7 +45,7 @@ include('login_check.php');
             <div class="teammate">
                 <img src="frontend/img/bonni.jpg" alt="Teammate 1" style="width: 180px;">
 
-                <h3>Bonny Basak</h3>
+                <h3>Bonni Basak</h3>
                 <p>Marketing Director</p>
             </div>
             <div class="teammate">
@@ -58,7 +58,7 @@ include('login_check.php');
                 <img src="frontend/img/shohan.png" alt="Teammate 1" style="width: 180px;">
 
                 <h3>Shohan</h3>
-                <p>Sales Representative</p>
+                <p>System Director</p>
             </div>
         </section>
         <section class="contact-form">

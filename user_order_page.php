@@ -6,7 +6,6 @@ include('login_check.php');
 include('connection.php');
 
 // Fetch user orders based on user_id (you may need to replace '5' with the actual user_id)
-$user_id = 5;
 $sql = "SELECT * FROM orders WHERE user_id = $user_id";
 $result = $conn->query($sql);
 
@@ -21,6 +20,8 @@ if ($result->num_rows > 0) {
         <title>User Order Tracking</title>
         <!-- Add Bootstrap CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+           <!-- Font Awesome -->
+           <link rel="stylesheet" href="frontend/plugins/fontawesome-free/css/all.min.css">
         <style>
             /* Custom styling for the progress bar */
 
@@ -84,7 +85,8 @@ if ($result->num_rows > 0) {
         </style>
     </head>
     <body>
-    <?php include('header.php');
+    <?php
+         include('header.php');
         ?>
 
 
