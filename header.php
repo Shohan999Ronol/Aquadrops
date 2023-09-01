@@ -27,6 +27,10 @@
                 <h4 class="h3 mb-0"><strong><?php echo $user_name ?></strong></h4>
                 <div class="mb-3"><?php echo $user_email ?></div>
                 <div class="dropdown-divider"></div>
+                <a href="user_order_page.php" class="dropdown-item">
+                    <i class="fa fa-list" aria-hidden="true"></i> Orders
+                </a>
+                <div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item">
                     <i class="fas fa-user-cog mr-2"></i> Settings
                 </a>
