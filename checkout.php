@@ -2,6 +2,14 @@
 include('login_check.php');
 
 include('connection.php');
+if (isset($_GET['totalAmount'])) {
+    $totalAmount = $_GET['totalAmount'];
+} else {
+    // Handle the case where the parameter is not set
+    $totalAmount = 0; // Set a default value or perform error handling
+}
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userId = $_SESSION['user_id'];
@@ -10,6 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contactNo = $_POST['contact_no'];
     $address = $_POST['address'];
     $paymentMethod = $_POST['payment_method'];
+    $totalamount= $_POST['total_amount'];
+    
 
     // Get the product list from the cart
     $productList = array();
@@ -23,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insert user information and product list into the database
-    $insertQuery = "INSERT INTO orders (user_id, name, email, contact_no, address, payment_method, product_list) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $insertQuery = "INSERT INTO orders (user_id, name, email, contact_no, address, payment_method, product_list,total_amount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($insertQuery);
-    $stmt->bind_param("issssss", $userId, $name, $email, $contactNo, $address, $paymentMethod, json_encode($productList));
+    $stmt->bind_param("isssssss", $userId, $name, $email, $contactNo, $address, $paymentMethod, json_encode($productList),$totalamount);
     if ($stmt->execute()) {
         // Clear the cart after successful order
         $deleteCartQuery = "DELETE FROM cart WHERE user_id = ?";
@@ -106,6 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     }
                                     ?>
                                         </ul>
+                                        <!-- Use the $totalAmount value in your checkout page -->
+                                    <div><strong class="text-danger">Total Amount: <?php echo $totalAmount;?> tk</strong></div>
                                     </div>
                                     <form action="checkout.php" method="post">
                                         <div class="mb-3">
@@ -132,6 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <option value="Bkash">BKash</option>
                                         </select>
                                         </div>
+                                        <input type="hidden" name="total_amount" value="<?php echo $totalAmount;?>">
                                         <button type="submit" class="btn btn-dark btn-block">Place Order</button>
                                     </form>
                                 </div>

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($conn->query($sql) === TRUE) {
         // Status updated successfully
     } else {
-        echo "Error updating status: " . $conn->error;
+        echo "Error updating status: ";
     }
 }
 
@@ -179,7 +179,7 @@ if ($result->num_rows > 0) {
 			<!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <div class="container mt-5">
+    <div class="container mt-2">
         <h2 class="mb-4">Admin Dashboard - Orders</h2>
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
@@ -190,6 +190,7 @@ if ($result->num_rows > 0) {
                         <th class="col-md-2">Address</th>
                         <th class="col-md-2">Payment Method</th>
                         <th class="col-md-2">Product List</th>
+                        <th>Total Amount</th>
                         <th class="col-md-2">Order Date</th>
                         <th class="col-md-2">Current Status</th>
                         <!-- Apply col-md-2 class here -->
@@ -216,6 +217,7 @@ if ($result->num_rows > 0) {
                                 }
                                 ?>
                             </td>
+							<td><?php echo $order['total_amount']; ?></td>
                             <td><?php echo date('l, d-m-Y', strtotime($order['order_date'])); ?></td>
                             <td><?php echo $order['status']; ?></td>
                             <td class="col-md-2 text-center">

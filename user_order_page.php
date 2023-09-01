@@ -98,7 +98,8 @@ if ($result->num_rows > 0) {
                 <div class="card mb-3">
                     <div class="card-body ">
                         <h5 class="card-title">Order ID: <?php echo $row['id']; ?></h5>
-                        <h6 class="card-text">Order Date: <?php echo $row['order_date']; ?></h6>
+                        <h6 class="card-text">Order Date: <?php echo date('l, d-m-Y', strtotime($row['order_date'])); ?></h6>
+                        <h6 class="card-text text-danger"> Total Amount: <?php echo $row['total_amount']; ?> tk</h6>
                          <!-- Display the product list for this order -->
                          <div>
                             <h6>Product List:</h6>

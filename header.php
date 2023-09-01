@@ -4,24 +4,23 @@
             <img src="frontend/img/download.jfif" alt="Company Logo" style="height: 100px;">
         </a>
     </div>
-    <nav class="navbar-icons d-flex align-items-center">
-        <a href="./products.php" class="nav-link d-flex align-items-center text-dark">
+    <nav class="navbar-icons d-flex align-items-center row">
+        <a href="./products.php" class="nav-link d-flex align-items-center text-dark col-3">
             <img src="frontend/img/product.png" alt="Products" class="mr-1" style="max-height: 40px;">
             Products
         </a>
-        <a href="./aboutUs.php" class="nav-link d-flex align-items-center text-dark">
+        <a href="./aboutUs.php" class="nav-link d-flex align-items-center text-dark col-3">
             <img src="frontend/img/contact-us.png" alt="About Us" class="mr-1" style="max-height: 40px;">
             ABOUT US
         </a>
 		<?php if ($userLoggedIn) : ?>
-        <a href="./cart.php" class="nav-link d-flex align-items-center text-dark">
+        <a href="./cart.php" class="nav-link d-flex align-items-center text-dark col-2">
             <img src="frontend/img/grocery-store.png" alt="Cart" class="mr-1" style="max-height: 40px;">
             Cart
         </a>
         <div class="dropdown nav-link p-0 pr-3">
-            <a class="dropdown-toggle d-flex align-items-center text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <a class="dropdown-toggle d-flex align-items-center text-dark col-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                 <img src="frontend/img/avatar.png" alt="Dashboard" class="mr-1" style="max-height: 40px;">
-                <?php echo $user_name ?>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
                 <h4 class="h3 mb-0"><strong><?php echo $user_name ?></strong></h4>

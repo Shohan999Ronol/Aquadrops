@@ -152,17 +152,17 @@ if (isset($_POST['qty'])) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <div>Shipping</div>
-                                            <div>20 tk</div>
+                                            <div>40 tk</div>
                                         </div>
                                         <div class="d-flex justify-content-between summery-end">
                                             <div>Total</div>
                                             <div>
-                                                <?php echo $totalAmount + 20; ?>
+                                                <?php echo $totalAmount + 40; ?>
                                                 tk
                                             </div>
                                         </div>
                                         <div class="pt-5">
-                                            <a href="checkout.php" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
+                                            <a <a href="checkout.php?totalAmount=<?php echo $totalAmount; ?>" class="btn-dark btn btn-block w-100">Proceed to Checkout</a>
                                         </div>
                                     </div>
                                 </div>

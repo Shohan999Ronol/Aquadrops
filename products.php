@@ -108,12 +108,13 @@ if (isset($_POST['add_to_cart'])) {
                         // Apply text-center class to center-align the entire content
                         echo '<h5 class="card-title">' . $product["product_name"] . '</h5>';
                         echo '<p class="card-text">' . $product["description"] . '</p>';
-                        echo '<p class="card-text">' . $product["price"] . ' Taka</p>';
+                        echo '<p class="card-text"  style="text-decoration: line-through; color: blue ">' . $product["price"] . ' Taka</p>';
+                        echo '<p class="card-text text-danger">' . $product["discount_price"] . ' Taka</p>';
 
                         // Add the "Add to Cart" button within a form
                         echo '<form method="post">';
                         echo '<input type="hidden" name="product_name" value="' . $product["product_name"] . '">';
-                        echo '<input type="hidden" name="price" value="' . $product["price"] . '">';
+                        echo '<input type="hidden" name="price" value="' . $product["discount_price"] . '">';
                         echo '<input type="hidden" name="image_url" value="'.$product["image_url"].'">';
                         echo '<button class="btn btn-primary" type="submit" name="add_to_cart" onclick="showConfirmation()">Add to Cart</button>';
                         echo '</form>';
