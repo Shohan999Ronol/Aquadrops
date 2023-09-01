@@ -6,20 +6,8 @@ if (isset($_SESSION['user_id'])) {
     header("Location: dashboard.php"); // Change this to your admin or user dashboard page
     exit();
 }
-
-// Database configuration
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = 'watersupplyphp';
-
-$connection = new mysqli($host, $username, $password, $database);
-
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
-}
-
-$error_message = '';
+ 
+ include('connection.php');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
@@ -27,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Prepare and execute an SQL statement to retrieve user data
     $sql = "SELECT * FROM users WHERE email = ?";
-    $stmt = $connection->prepare($sql);
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();
 
@@ -40,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_email']= $user['email'];
 
-            header("Location: adminLogin.php"); //  admin dashboard page
+            header("Location:adminLogin.php"); //  admin dashboard page
             exit();
         } else {
             $_SESSION['user_id'] = $user['id'];
@@ -57,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt->close();
 }
-$connection->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>

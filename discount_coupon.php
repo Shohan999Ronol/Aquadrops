@@ -97,7 +97,7 @@ CREATE TABLE coupons (
 							<!-- Add icons to the links using the .nav-icon class
 								with font-awesome or any other icon font library -->
 							<li class="nav-item">
-								<a href="dashboard.html" class="nav-link">
+							<a href="adminLogin.php" class="nav-link">
 									<i class="nav-icon fas fa-tachometer-alt"></i>
 									<p> Admin Dashboard</p>
 								</a>																
@@ -137,7 +137,7 @@ CREATE TABLE coupons (
 								</a>
 							</li>							
 							<li class="nav-item">
-								<a href="orders.html" class="nav-link">
+							<a href="order_control.php" class="nav-link">
 									<i class="nav-icon fas fa-shopping-bag"></i>
 									<p>Orders</p>
 								</a>

@@ -1,11 +1,15 @@
 <?php
+include('login_check.php');
+if(!$userLoggedIn){
+	header("location:login.php");
+	exit();
+}
 // Database configuration
 include('connection.php');
 
 // Fetch data from the database
 $sql = "SELECT * FROM contacts";
 $result = $conn->query($sql);
-include('login_check.php');
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +89,7 @@ include('login_check.php');
 							<!-- Add icons to the links using the .nav-icon class
 								with font-awesome or any other icon font library -->
 							<li class="nav-item">
-								<a href="dashboard.html" class="nav-link">
+								<a href="adminLogin.php" class="nav-link">
 									<i class="nav-icon fas fa-tachometer-alt"></i>
 									<p> Admin Dashboard</p>
 								</a>																
@@ -125,7 +129,7 @@ include('login_check.php');
 								</a>
 							</li>							
 							<li class="nav-item">
-								<a href="orders.html" class="nav-link">
+								<a href="order_control.php" class="nav-link">
 									<i class="nav-icon fas fa-shopping-bag"></i>
 									<p>Orders</p>
 								</a>
@@ -241,6 +245,9 @@ include('login_check.php');
                                         echo '<td><a href="delete_contact.php?id=' . $row["id"] . '">Delete</a></td>';
                                         echo '</tr>';
                                     }
+
+
+									$conn->close();
                                     ?>
                                 </tbody>
                             </table>

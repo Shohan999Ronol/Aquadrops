@@ -142,8 +142,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </section>
         </main>
 
-        <?php include('footer.php'); ?>
-
+        <?php include('footer.php'); 
+        
+        $conn->close();
+        ?>
+        
         <!-- Your script includes go here -->
     </body>
 

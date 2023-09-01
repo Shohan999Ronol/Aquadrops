@@ -60,22 +60,6 @@ if (isset($_POST['add_to_cart'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         
         <title>Products</title>
-    <style>
-        
-        /* Add this CSS to your existing style.css or in a <style> tag in your HTML */
-        .product-listing {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Three columns */
-            gap: 20px; /* Gap between products */
-            padding: 20px;
-        }
-
-        .product {
-            background-color: #f5f5f5;
-            padding: 20px;
-            text-align: center;
-        }
-    </style>
 </head>
 <body>
 
@@ -83,24 +67,10 @@ if (isset($_POST['add_to_cart'])) {
     include('header.php');
 ?>
 
-
-
 <section class="product-section">
+    <div class="container">
         <?php
-        // Database configuration
-        $host = "localhost";
-        $username = "root";
-        $password = "";
-        $database = 'watersupplyphp';
-
-        // Create a database connection
-        $conn = new mysqli($host, $username, $password, $database);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
+        include('connection.php');
         // Fetch product types from the database
         $sql = "SELECT DISTINCT product_type FROM products";
         $result = $conn->query($sql);
@@ -116,38 +86,58 @@ if (isset($_POST['add_to_cart'])) {
                 $productsResult = $conn->query($productsSql);
 
                 if ($productsResult->num_rows > 0) {
-                    echo '<section class="product-listing">';
+                    echo '<div class="row">';
                     while ($product = $productsResult->fetch_assoc()) {
-                        echo '<div class="product">';
-                        echo '<img src="' . $product["image_url"] . '" alt="' . $product["product_name"] . '">';
-                        echo '<h3>' . $product["product_name"] . '</h3>';
-                        echo '<p>' . $product["description"] . '</p>';
-                        echo '<span>' . $product["price"] . ' Taka</span>';
-                        
+                        echo '<div class="col-md-4">';
+                        echo '<div class="card mb-4 text-center">';
+
+                        // Add the img-fluid class to make the image responsive
+                        echo '<img src="' . $product["image_url"] . '" alt="' . $product["product_name"] . '" class="card-img-top img-fluid mx-auto" style="height: 250px; max-width: 180px;">';
+
+                        echo '<div class="card-body d-flex flex-column align-items-center">';
+                        // Apply text-center class to center-align the entire content
+                        echo '<h5 class="card-title">' . $product["product_name"] . '</h5>';
+                        echo '<p class="card-text">' . $product["description"] . '</p>';
+                        echo '<p class="card-text">' . $product["price"] . ' Taka</p>';
+
                         // Add the "Add to Cart" button within a form
                         echo '<form method="post">';
                         echo '<input type="hidden" name="product_name" value="' . $product["product_name"] . '">';
                         echo '<input type="hidden" name="price" value="' . $product["price"] . '">';
                         echo '<input type="hidden" name="image_url" value="'.$product["image_url"].'">';
-                        echo '<button class="add-to-cart" type="submit" name="add_to_cart">Add to Cart</button>';
+                        echo '<button class="btn btn-primary" type="submit" name="add_to_cart" onclick="showConfirmation()">Add to Cart</button>';
                         echo '</form>';
-                        
+
+                        echo '</div>';
+                        echo '</div>';
                         echo '</div>';
                     }
-                    echo '</section>';
+                    echo '</div>';
                 }
 
                 echo '</div>';
             }
         }
 
+
         // Close the database connection
         $conn->close();
         ?>
-    </section>
+    </div>
+</section>
+
+
 <?php 
     include('footer.php');
     ?>
-
+<script>
+    // JavaScript function to show a confirmation message
+    
+        // JavaScript function to show the confirmation message
+        function showConfirmation() {
+            alert("<?php echo $confirmationMessage; ?>");
+        }
+  
+</script>
 </body>
 </html>

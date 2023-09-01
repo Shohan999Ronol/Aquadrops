@@ -1,41 +1,29 @@
 <?php
 include('connection.php');
 
+// Handle changing order status
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $product_name = $_POST['product_name'];
-    $description = $_POST['description'];
-    $quantity = $_POST['quantity'];
-    $cost = $_POST['cost'];
-    $type = $_POST['type'];
-    
-    // File Upload Handling
-    $image_url = '';
+    $orderId = $_POST['order_id'];
+    $newStatus = $_POST['new_status'];
 
-    if (isset($_FILES["picture"]) && $_FILES["picture"]["error"] === UPLOAD_ERR_OK) {
-        $uploadDir = "frontend/img/";  // Choose the directory to save the uploaded files
-        $uploadFile = $uploadDir . basename($_FILES["picture"]["name"]);
-
-        if (move_uploaded_file($_FILES["picture"]["tmp_name"], $uploadFile)) {
-            echo "File is valid, and was successfully uploaded.\n";
-            $image_url = $uploadFile;
-        } else {
-            echo "Upload failed.\n";
-        }
-    }
-
-    // Insert Data into the Database
-    $sql = "INSERT INTO products (product_name, description, price, product_type, image_url) VALUES ('$product_name', '$description', $cost, '$type', '$image_url')";
-
+    // Update order status in the database
+    $sql = "UPDATE orders SET status = '$newStatus' WHERE id = $orderId";
     if ($conn->query($sql) === TRUE) {
-        $successMessage = "Product added successfully!";
+        // Status updated successfully
     } else {
-        $errorMessage = "Error: " . $conn->error;
+        echo "Error updating status: " . $conn->error;
     }
-
-    // Close the database connection
-    $conn->close();
 }
 
+// Fetch orders from the database
+$sql = "SELECT * FROM orders";
+$result = $conn->query($sql);
+$orders = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $orders[] = $row;
+    }
+}
 ?>
 
 
@@ -52,54 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<!-- Theme style -->
 		<link rel="stylesheet" href="frontend/css/adminlte.min.css">
 		<link rel="stylesheet" href="frontend/css/custom.css">
-		 <!-- bootstrap -->
+        		 <!-- bootstrap -->
 		 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-		<style>
-    form {
-        max-width: 600px;
-        width: 100%;
-        margin: 3% auto;
-        padding: 20px;
-        background-color: #fff;
-        border: 2px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    form label {
-        display: block;
-        margin-top: 10px;
-    }
-
-    form input[type="text"],
-    form textarea,
-    form input[type="number"],
-    form select,
-    form input[type="file"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    form select {
-        height: 40px;
-    }
-
-    form button {
-        background-color: #333;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        display: block;
-        margin: 0 auto; /* Center the button */
-    }
-</style>
-
-
 		
 	</head>
 	<body class="hold-transition sidebar-mini">
@@ -130,8 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<img src="frontend/img/avatar5.png" class='img-circle elevation-2' width="40" height="40" alt="">
 						</a>
 						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
-							<h4 class="h4 mb-0"><strong>ADMIN</strong></h4>
-							<div class="mb-3">admin@egmail.com</div>
+							<h4 class="h4 mb-0"><strong><?php echo $user_name; ?></strong></h4>
+							<div class="mb-3"><?php echo $user_email;  ?></div>
 							<div class="dropdown-divider"></div>
 							<a href="#" class="dropdown-item">
 								<i class="fas fa-user-cog mr-2"></i> Settings								
@@ -144,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<a href="#" class="dropdown-item text-danger" id="logout-button">
     						<i class="fas fa-sign-out-alt mr-2"></i> Logout
 							</a>
-
+						</div>
 					</li>
 				</ul>
 			</nav>
@@ -164,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<!-- Add icons to the links using the .nav-icon class
 								with font-awesome or any other icon font library -->
 							<li class="nav-item">
-							<a href="adminLogin.php" class="nav-link">
+								<a href="dashboard.html" class="nav-link">
 									<i class="nav-icon fas fa-tachometer-alt"></i>
 									<p> Admin Dashboard</p>
 								</a>																
@@ -235,64 +177,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
          	</aside>
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
-				<!-- Content Header (Page header) -->
-				<section class="content-header">					
-					<div class="container-fluid">
-						<div class="row mb-2">
-							<div class="col-sm-6">
-								<h1>Add Products</h1>
-							</div>
-							
-						</div>
-					</div>					
+				<!-- Main content -->
+				<section class="content">
+					<!-- Default box -->
 
-		<div class="container mt-5">
+                    
 
-        <form action="add_product.php" method="POST" enctype="multipart/form-data">
-            <label for="product_name">Product Name</label>
-            <input type="text" name="product_name" required><br>
+                                                        
+                    <div class="container mt-5">
+        <h2 class="mb-4">Admin Dashboard - Orders</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+            <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Contact</th>
+        <th>Address</th>
+        <th>Payment Method</th>
+        <th>Product List</th>
+        <th class="col-md-2 ">Order Date</th>
+        <th>Current Status</th> <!-- Apply col-md-2 class here -->
+        <th class="col-md-2 ">Update Status</th>
+    </tr>
+</thead>
+<tbody>
+                    <?php foreach ($orders as $order) : ?>
+                        <tr>
+                            <td><?php echo $order['id']; ?></td>
+                            <td><?php echo "Name:".$order['name'] . "<br>" ."Email:". $order['email'] . "<br>" . "Contact:".$order['contact_no']; ?></td>
+                            <td><?php echo $order['address']; ?></td>
+                            <td><?php echo $order['payment_method']; ?></td>
+                            <td><?php echo $order['product_list']; ?></td>
+                            <td><?php echo date('l, d-m-Y', strtotime($order['order_date'])); ?></td>
+                            <td><?php echo $order['status']; ?></td>
+                                <td class="col-md-2 text-center">
+                                <form method="post">
+                                    <select name="new_status" class="form-control form-control-sm">
+                                        <option value="Ordered">Ordered</option>
+                                        <option value="Shipped">Shipped</option>
+                                        <option value="On the Way">On the Way</option>
+                                        <option value="Delivered">Delivered</option>
+                                    </select>
+                                <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
 
-            <label for="description">Description</label>
-            <textarea name="description" required></textarea><br>
-
-            <label for="quantity">Quantity</label>
-            <input type="number" name="quantity" required><br>
-
-            <label for="cost">Cost</label>
-            <input type="number" step="0.01" name="cost" required><br>
-            
-            <label for="type">Type</label>
-            <select name="type" required>
-                <option value="Marchents">Marchents</option>
-                <option value="Soft Drinks">Soft Drinks</option>
-                <option value="Water Bottles">Water Bottles</option>
-            </select><br>
-
-            <label for="picture">Picture</label>
-            <input type="file" name="picture"><br>
-
-            <button type="submit" class="btn btn-primary d-block mx-auto">Submit</button>
-			<?php
-    if (isset($successMessage)) {
-        echo '<div id="success-message" class="alert alert-success" role="alert">' . $successMessage . '</div>';
-    } elseif (isset($errorMessage)) {
-        echo '<div id="error-message" class="alert alert-danger" role="alert">' . $errorMessage . '</div>';
-    }
-    ?>
-        </form>
+            </table>
+        </div>
     </div>
-
-
-    </section>
+                        
+                </section>
 				<!-- /.content -->
-			</div>
+    </div>
 			<!-- /.content-wrapper -->
 			<footer class="main-footer">
 				
-				<strong>Copyright &copy; 2023 @shohan All rights reserved.
+				<strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
 			</footer>
 			
-		</div>
+</div>
 		<!-- ./wrapper -->
 		<!-- jQuery -->
 		<script src="frontend/plugins/jquery/jquery.min.js"></script>
@@ -302,34 +249,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<script src="frontend/js/adminlte.min.js"></script>
 		<!-- AdminLTE for demo purposes -->
 		<script src="frontend/js/demo.js"></script>
-
-
-
+        <!-- Bootstrap 4 -->
+		<script src="frontend/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script>
 document.getElementById('logout-button').addEventListener('click', function() {
     // Redirect to the logout page
     window.location.href = 'logout.php'; // Change 'logout.php' to the actual path of your logout script
 });
-function hideMessages() {
-    setTimeout(function() {
-        var successMessage = document.getElementById('success-message');
-        var errorMessage = document.getElementById('error-message');
-        
-        if (successMessage) {
-            successMessage.style.display = 'none';
-        }
-        if (errorMessage) {
-            errorMessage.style.display = 'none';
-        }
-    }, 1000); // 1000 milliseconds = 1 second
-}
-
-// Call the hideMessages function when the page loads
-document.addEventListener('DOMContentLoaded', hideMessages);
-
-
-
-
 </script>
 
 	</body>
