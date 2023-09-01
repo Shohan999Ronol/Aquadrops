@@ -1,5 +1,5 @@
 <?php
- include('login_check.php');
+include('login_check.php');
 
 // Initialize the cart in the session if not already done
 if (!isset($_SESSION['cart'])) {
@@ -14,27 +14,36 @@ if (isset($_POST['add_to_cart'])) {
 
     include('connection.php');
 
-    // Insert the product into the cart table using prepared statement
-    $insertQuery = "INSERT INTO cart (user_id, product_name, price, image_url) VALUES (?, ?, ?, ?)";
-    
-    // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare($insertQuery);
-    $stmt->bind_param("isss", $_SESSION['user_id'], $productName, $price, $image_url);
-    
-    if ($stmt->execute()) {
-        // Product added successfully, show a success message
-        $message = "Product added to cart!";
+    // Check if the product is already in the cart
+    $selectQuery = "SELECT * FROM cart WHERE user_id = ? AND product_name = ?";
+    $stmt = $conn->prepare($selectQuery);
+    $stmt->bind_param("is", $_SESSION['user_id'], $productName);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Product is already in the cart, show a message
+        $message = "Product is already in the cart.";
     } else {
-        // Error occurred while adding the product, show an error message
-        $message = "Error adding product to cart.";
+        // Product is not in the cart, so insert it
+        $insertQuery = "INSERT INTO cart (user_id, product_name, price, image_url) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->bind_param("isss", $_SESSION['user_id'], $productName, $price, $image_url);
+
+        if ($stmt->execute()) {
+            // Product added successfully, show a success message
+            $message = "Product added to cart!";
+        } else {
+            // Error occurred while adding the product, show an error message
+            $message = "Error adding product to cart.";
+        }
     }
 
     $stmt->close();
     $conn->close();
 }
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
