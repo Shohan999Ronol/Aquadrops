@@ -119,7 +119,7 @@ if (isset($_POST['add_to_cart'])) {
 
                         echo '<div class="card-body d-flex flex-column align-items-center">';
                         // Apply text-center class to center-align the entire content
-                        echo '<h5 class="card-title">' . $product["product_name"] . '</h5>';
+                        echo '<h5 class="card-title"><strong>' . $product["product_name"] . '</strong></h5>';
                         echo '<p class="card-text">' . $product["description"] . '</p>';
                         echo '<p class="card-text"  style="text-decoration: line-through; color: blue ">' . $product["price"] . ' Taka</p>';
                         echo '<p class="card-text text-danger">' . $product["discount_price"] . ' Taka</p>';
