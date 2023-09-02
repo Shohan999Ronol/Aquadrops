@@ -3,7 +3,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = 'final_aqua';
+$database = 'final';
 
 // Create a database connection
 $conn = new mysqli($host, $username, $password, $database);
