@@ -23,8 +23,8 @@
             </div>
             <div class="col-md-4 mt-4 text-center">
                 <div class="footer-right mt-md-0">
-                    <a href="#" class="mr-3">About Us</a>
-                    <a href="#" class="mr-3">Contact Us</a>
+                    <a href="aboutUs.php" class="mr-3">About Us</a>
+                    <a href="aboutUs.php" class="mr-3">Contact Us</a>
                     <a href="#">Terms of Service</a>
                 </div>
             </div>
