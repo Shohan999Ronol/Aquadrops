@@ -1,11 +1,6 @@
 <?php
 include('login_check.php');
-if(!$userLoggedIn){
-	header("location:login.php");
-	exit();
-}
 ?>.
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +15,8 @@ if(!$userLoggedIn){
 		<!-- Theme style -->
 		<link rel="stylesheet" href="frontend/css/adminlte.min.css">
 		<link rel="stylesheet" href="frontend/css/custom.css">
+        		 <!-- bootstrap -->
+		 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 		
 	</head>
 	<body class="hold-transition sidebar-mini">
@@ -159,8 +156,25 @@ if(!$userLoggedIn){
 				</div>
 				<!-- /.sidebar -->
          	</aside>
+
+
+
+
+
+
+			
 			<!-- Content Wrapper. Contains page content -->
-			<div class="content-wrapper">
+			<!-- Main content -->
+<section class="content">
+	<section class="content-header">					
+					<div class="container-fluid">
+						<div class="row mb-2">
+							<div class="col-sm-6">
+								<h1>Products Discount</h1>
+							</div>
+							
+						</div>
+					</div>
 
       <div class="container mt-5">
         <div class="card">
@@ -190,6 +204,7 @@ if(!$userLoggedIn){
 
 
     <div class="container mt-5">
+		<section>
         <div class="card">
             <div class="card-body">
                 <h2 class="card-title">Product Data</h2>
@@ -262,15 +277,16 @@ if(!$userLoggedIn){
                 </div>
             </div>
         </div>
-    </div>
+		</section>
+   
+	</div>
 				
-			
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		
+		<strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
+	</footer>
 		</div>
-			<!-- /.content-wrapper -->
-			<footer class="main-footer">
-				
-				<strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
-			</footer>
 			
 		<!-- ./wrapper -->
 		<!-- jQuery -->

@@ -1,4 +1,6 @@
 <?php
+include('login_check.php');
+
 include('connection.php');
 
 // Handle changing order status
