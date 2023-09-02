@@ -3,9 +3,9 @@
         <div class="row justify-content-center">
             <div class="col-md-4 mt-4 text-center">
                 <div class="footer-left d-flex align-items-center justify-content-center">
-                    <a href="https://www.facebook.com/bisleriindia"><img src="frontend/img/fb-logo.jpg" alt="Facebook" class="mr-2 img-fluid" style="height: 40px;"></a>
-                    <a href="https://www.instagram.com/bisleriindia/"><img src="frontend/img/insta.jpg" alt="Instagram" class="mr-2 img-fluid" style="height: 40px;"></a>
-                    <a href="https://twitter.com/bisleriindia"><img src="frontend/img/twit.png" alt="Twitter" class="mr-2 img-fluid" style="height: 40px;"></a>
+                    <a href=""><img src="frontend/img/fb-logo.jpg" alt="Facebook" class="mr-2 img-fluid" style="height: 40px;"></a>
+                    <a href=""><img src="frontend/img/insta.jpg" alt="Instagram" class="mr-2 img-fluid" style="height: 40px;"></a>
+                    <a href=""><img src="frontend/img/twit.png" alt="Twitter" class="mr-2 img-fluid" style="height: 40px;"></a>
                 </div>
             </div>
             <div class="col-md-4 mt-4 text-center">
