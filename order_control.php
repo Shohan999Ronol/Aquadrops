@@ -106,7 +106,7 @@ if ($result->num_rows > 0) {
 							<!-- Add icons to the links using the .nav-icon class
 								with font-awesome or any other icon font library -->
 							<li class="nav-item">
-								<a href="dashboard.html" class="nav-link">
+								<a href="adminLogin.php" class="nav-link">
 									<i class="nav-icon fas fa-tachometer-alt"></i>
 									<p> Admin Dashboard</p>
 								</a>																
@@ -146,7 +146,7 @@ if ($result->num_rows > 0) {
 								</a>
 							</li>							
 							<li class="nav-item">
-								<a href="orders.html" class="nav-link">
+								<a href="order_control.php" class="nav-link">
 									<i class="nav-icon fas fa-shopping-bag"></i>
 									<p>Orders</p>
 								</a>
@@ -154,7 +154,13 @@ if ($result->num_rows > 0) {
 							<li class="nav-item">
 								<a href="./discount_coupon.php" class="nav-link">
 									<i class="nav-icon  fa fa-percent" aria-hidden="true"></i>
-									<p>Discount</p>
+									<p>Discount_coupons</p>
+								</a>
+							</li>
+                            <li class="nav-item">
+								<a href="products_discount.php" class="nav-link">
+									<i class="nav-icon  fa fa-percent" aria-hidden="true"></i>
+									<p>Discounts</p>
 								</a>
 							</li>
 							<li class="nav-item">
@@ -175,6 +181,13 @@ if ($result->num_rows > 0) {
 				</div>
 				<!-- /.sidebar -->
          	</aside>
+
+
+
+
+
+
+			
 			<!-- Content Wrapper. Contains page content -->
 			<!-- Main content -->
 <section class="content">

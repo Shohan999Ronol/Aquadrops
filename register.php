@@ -1,15 +1,5 @@
 <?php
-// Database configuration
-$host = "localhost";
-$username = "root";
-$password = "";
-$database = 'watersupplyphp';
-
-$connection = new mysqli($host, $username, $password, $database);
-
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
-}
+include('connection.php');
 
 $message = '';
 
@@ -21,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // Prepare and execute an SQL statement to insert user data
     $sql = "INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)";
-    $stmt = $connection->prepare($sql);
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssss", $name, $email, $phone, $password);
 
     if ($stmt->execute()) {
@@ -32,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $stmt->close();
 }
-$connection->close();
+$conn->close();
 ?>
 
 <!DOCTYPE html>

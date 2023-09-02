@@ -137,7 +137,13 @@ $result = $conn->query($sql);
 							<li class="nav-item">
 								<a href="./discount_coupon.php" class="nav-link">
 									<i class="nav-icon  fa fa-percent" aria-hidden="true"></i>
-									<p>Discount</p>
+									<p>Discount_coupons</p>
+								</a>
+							</li>
+                            <li class="nav-item">
+								<a href="products_discount.php" class="nav-link">
+									<i class="nav-icon  fa fa-percent" aria-hidden="true"></i>
+									<p>Discounts</p>
 								</a>
 							</li>
 							<li class="nav-item">

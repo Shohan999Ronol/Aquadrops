@@ -1,23 +1,10 @@
 <?php
-include('connection.php');
-
-// Fetch data from the database
-$sql = "SELECT * FROM contacts";
-$result = $conn->query($sql);
+include('login_check.php');
+if(!$userLoggedIn){
+	header("location:login.php");
+	exit();
+}
 ?>
-
-<!-- 
-//table Query
-
-
-CREATE TABLE coupons (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    coupon_name VARCHAR(100) NOT NULL,
-    discount INT NOT NULL
-);
-
- -->
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +19,7 @@ CREATE TABLE coupons (
 		<!-- Theme style -->
 		<link rel="stylesheet" href="frontend/css/adminlte.min.css">
 		<link rel="stylesheet" href="frontend/css/custom.css">
-		 <!-- bootstrap -->
-		 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		
 	</head>
 	<body class="hold-transition sidebar-mini">
 		<!-- Site wrapper -->
@@ -63,8 +49,8 @@ CREATE TABLE coupons (
 							<img src="frontend/img/avatar5.png" class='img-circle elevation-2' width="40" height="40" alt="">
 						</a>
 						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-3">
-							<h4 class="h4 mb-0"><strong>Tanmoy Bhwomick</strong></h4>
-							<div class="mb-3">admin@egmail.com</div>
+							<h4 class="h4 mb-0"><strong><?php echo $user_name; ?></strong></h4>
+							<div class="mb-3"><?php echo $user_email;  ?></div>
 							<div class="dropdown-divider"></div>
 							<a href="#" class="dropdown-item">
 								<i class="fas fa-user-cog mr-2"></i> Settings								
@@ -77,13 +63,13 @@ CREATE TABLE coupons (
 							<a href="#" class="dropdown-item text-danger" id="logout-button">
     						<i class="fas fa-sign-out-alt mr-2"></i> Logout
 							</a>
-
+						</div>
 					</li>
 				</ul>
 			</nav>
 			<!-- /.navbar -->
-				<!-- Main Sidebar Container -->
-				<aside class="main-sidebar sidebar-dark-primary elevation-4">
+			<!-- Main Sidebar Container -->
+			<aside class="main-sidebar sidebar-dark-primary elevation-4">
 				<!-- Brand Logo -->
 				<a href="#" class="brand-link">
 					<img src="frontend/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -172,91 +158,118 @@ CREATE TABLE coupons (
 				</div>
 				<!-- /.sidebar -->
          	</aside>
-
-
-
-			
 			<!-- Content Wrapper. Contains page content -->
 			<div class="content-wrapper">
-				<!-- Content Header (Page header) -->
-				<section class="content-header">					
-					<div class="container-fluid">
-						<div class="row mb-2">
-							<div class="col-sm-6">
-								<h1>Discount Coupons</h1>
-							</div>
-							
-						</div>
-					</div>					
 
-    <div class="container mt-5">
-        <?php
-         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['action'])) {
-                $action = $_POST['action'];
-                if ($action === 'add') {
-                    $couponName = $_POST['coupon_name'];
-                    $discount = $_POST['discount'];
-
-                    $sql = "INSERT INTO coupons (coupon_name, discount) VALUES ('$couponName', $discount)";
-                    $conn->query($sql);
-                }
-            }
-        }
-
-        if (isset($_GET['delete'])) {
-            $id = $_GET['delete'];
-            $sql = "DELETE FROM coupons WHERE id=$id";
-            $conn->query($sql);
-            
-        }
-
-        echo "<h2>Add Coupon</h2>";
-        echo "<form action='discount_coupon.php' method='post'>";
-        echo "    <input type='hidden' name='action' value='add'>";
-        echo "    <div class='form-group'>";
-        echo "        <label for='coupon_name'>Coupon Name:</label>";
-        echo "        <input type='text' class='form-control' name='coupon_name' required>";
-        echo "    </div>";
-        echo "    <div class='form-group'>";
-        echo "        <label for='discount'>Discount:</label>";
-        echo "        <input type='number' class='form-control' name='discount' required>";
-        echo "    </div>";
-        echo "    <button type='submit' class='btn btn-primary'>Add Coupon</button>";
-        echo "</form>";
-
-        echo "<h2>Coupon List</h2>";
-        echo "<ul class='list-group'>";
-        $sql = "SELECT id, coupon_name, discount FROM coupons";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                echo "<li class='list-group-item d-flex justify-content-between align-items-center m-2 p-2'>";
-                echo "{$row['coupon_name']} - {$row['discount']}%";
-                echo " <a href='discount_coupon.php?delete={$row['id']}' class='btn btn-danger btn-sm'>Remove</a>";
-                echo "</li>";
-            }
-        } else {
-            echo "<li class='list-group-item'>No coupons available.</li>";
-        }
-        echo "</ul>";
-
-        $conn->close();
-        ?>
+      <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3 mt-2">
+                        <label for="productType" class="form-label">Product Type</label>
+                        <select class="form-select" id="productType" name="productType">
+                            <option value="all">ALL</option>
+                            <option value="Marchents">Marchents</option>
+                            <option value="Soft Drinks">Soft Drinks</option>
+                            <option value="Water Bottles">Water Bottles</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="discountPercentage" class="form-label">Discount Percentage</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="discountPercentage" name="discountPercentage" min="0" max="100" value="0">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="applyDiscount">Apply Discount</button>
+                </form>
+            </div>
+        </div>
     </div>
 
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Product Data</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Product Type</th>
+                                <th>Discount Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            
+                            include('connection.php');
 
-    </section>
-				<!-- /.content -->
-			</div>
+                            // Handle form submission
+                            if (isset($_POST['applyDiscount'])) {
+                                $productType = $_POST['productType'];
+                                $discountPercentage = $_POST['discountPercentage'];
+
+                                if($productType=='all'){
+
+                                    $discount=1-($discountPercentage/100);
+
+                                // Update discount prices in the database based on your logic
+                                // For this example, we'll just update the discount_price column with the same value as price
+                                $sql = "UPDATE products SET discount_price = price * '$discount' ";
+                                $conn->query($sql);
+
+                                }
+
+                              
+                                $discount=1-($discountPercentage/100);
+
+                                // Update discount prices in the database based on your logic
+                                // For this example, we'll just update the discount_price column with the same value as price
+                                $sql = "UPDATE products SET discount_price = price * '$discount' WHERE product_type = '$productType'";
+                                $conn->query($sql);
+                            }
+
+                            // Fetch and display data from the database
+                            $sql = "SELECT * FROM products";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo '<tr>';
+                                    echo '<td>' . $row['id'] . '</td>';
+                                    echo '<td>' . $row['product_name'] . '</td>';
+                                    echo '<td>' . $row['price'] . '</td>';
+                                    echo '<td>' . $row['description'] . '</td>';
+                                    echo '<td>' . $row['product_type'] . '</td>';
+                                    echo '<td>' . $row['discount_price'] . '</td>';
+                                    echo '</tr>';
+                                }
+                            } else {
+                                echo '<tr><td colspan="6">No products found</td></tr>';
+                            }
+
+                            // Close the database connection
+                            $conn->close();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+				
+			
+		</div>
 			<!-- /.content-wrapper -->
 			<footer class="main-footer">
 				
-				<strong>Copyright &copy; @shohan All rights reserved.
+				<strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
 			</footer>
 			
-		</div>
 		<!-- ./wrapper -->
 		<!-- jQuery -->
 		<script src="frontend/plugins/jquery/jquery.min.js"></script>

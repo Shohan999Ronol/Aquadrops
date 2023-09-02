@@ -123,7 +123,7 @@ include('login_check.php');
       <button>Add to Cart</button>
     </div>
     <div class="show-all-products">
-      <a href="{{ url('/products') }}">
+      <a href="products.php">
         <button>Show All Products</button>
       </a>
     </div>

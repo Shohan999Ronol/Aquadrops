@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Your head content goes here -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cart Page</title>
+        <title>Check Out</title>
         <link rel="stylesheet" href="frontend/style.css">
         <link rel="stylesheet" href="frontend/cart.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
