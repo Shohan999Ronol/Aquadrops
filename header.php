@@ -41,7 +41,7 @@
                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                 </a>
 				<?php else : ?>
-				<a href="login.php" class="nav-link d-flex align-items-center text-dark"><img src="frontend/img/avatar.png" alt="Login"class="mr-1" style="max-height: 40px;">LogIn</a>
+				<a href="login.php" class="nav-link d-flex align-items-center text-dark col-3"><img src="frontend/img/avatar.png" alt="Login"class="mr-1" style="max-height: 40px;">LogIn</a>
 			<?php endif; ?>
             </div>
         </div>
