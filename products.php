@@ -69,6 +69,14 @@ if (isset($_POST['add_to_cart'])) {
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         
         <title>Products</title>
+
+
+        <style>
+            .fade-out {
+                    opacity: 0;
+                    transition: opacity 1s ease; /* Adjust the transition duration as needed */
+                }
+        </style>
         
 </head>
 <body>
@@ -78,6 +86,11 @@ if (isset($_POST['add_to_cart'])) {
 ?>
 
 <section class="product-section">
+<?php
+    if (isset($message)) {
+        echo '<div id="success-message" class="alert alert-success" role="alert">' . $message . '</div>';
+    } 
+    ?>
     <div class="container">
         <?php
         include('connection.php');
@@ -106,7 +119,7 @@ if (isset($_POST['add_to_cart'])) {
 
                         echo '<div class="card-body d-flex flex-column align-items-center">';
                         // Apply text-center class to center-align the entire content
-                        echo '<h5 class="card-title">' . $product["product_name"] . '</h5>';
+                        echo '<h5 class="card-title"><strong>' . $product["product_name"] . '</strong></h5>';
                         echo '<p class="card-text">' . $product["description"] . '</p>';
                         echo '<p class="card-text"  style="text-decoration: line-through; color: blue ">' . $product["price"] . ' Taka</p>';
                         echo '<p class="card-text text-danger">' . $product["discount_price"] . ' Taka</p>';
@@ -149,6 +162,27 @@ if (isset($_POST['add_to_cart'])) {
             alert("<?php echo $confirmationMessage; ?>");
         }
   
+</script>
+<script>
+    // Wait for the document to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find the success message element
+        var successMessage = document.getElementById('success-message');
+
+        // Check if the element exists
+        if (successMessage) {
+            // Set a timeout to initiate the fade-out effect after 1000 milliseconds (1 second)
+            setTimeout(function() {
+                // Apply a CSS class to initiate the fade-out transition
+                successMessage.classList.add('fade-out');
+                
+                // Set another timeout to hide the message after the transition completes (e.g., 1000ms)
+                setTimeout(function() {
+                    successMessage.style.display = 'none';
+                }, 1000);
+            }, 4000); // Wait 4 seconds before starting the fade-out
+        }
+    });
 </script>
 </body>
 </html>

@@ -4,7 +4,8 @@ if(!$userLoggedIn){
 	header("location:login.php");
 	exit();
 }
-?>
+?>.
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -187,6 +188,7 @@ if(!$userLoggedIn){
         </div>
     </div>
 
+
     <div class="container mt-5">
         <div class="card">
             <div class="card-body">
@@ -197,9 +199,9 @@ if(!$userLoggedIn){
                             <tr>
                                 <th>ID</th>
                                 <th>Product Name</th>
-                                <th>Price</th>
                                 <th>Description</th>
                                 <th>Product Type</th>
+                                <th>Price</th>
                                 <th>Discount Price</th>
                             </tr>
                         </thead>
@@ -242,9 +244,9 @@ if(!$userLoggedIn){
                                     echo '<tr>';
                                     echo '<td>' . $row['id'] . '</td>';
                                     echo '<td>' . $row['product_name'] . '</td>';
-                                    echo '<td>' . $row['price'] . '</td>';
                                     echo '<td>' . $row['description'] . '</td>';
                                     echo '<td>' . $row['product_type'] . '</td>';
+                                    echo '<td>' . $row['price'] . '</td>';
                                     echo '<td>' . $row['discount_price'] . '</td>';
                                     echo '</tr>';
                                 }

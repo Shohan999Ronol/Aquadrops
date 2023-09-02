@@ -42,6 +42,34 @@ if (isset($_POST['qty'])) {
     $stmt->execute();
 }
 
+
+if (isset($_POST['applyCouponButton'])) {
+    $couponCode = $_POST['couponCode'];
+
+    // Add SQL query to retrieve the discount based on the provided coupon code
+    $couponQuery = "SELECT discount FROM coupons WHERE coupon_name = ?";
+    $stmt = $conn->prepare($couponQuery);
+    $stmt->bind_param('s', $couponCode);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $discount = $row['discount'];
+
+        // Redirect back to the cart page with the discount parameter
+        header('location: cart.php?discount=' . $discount);
+        exit();
+    } else {
+        // Display an error message or update the UI as needed
+        $_SESSION['showAlert'] = 'block';
+        $_SESSION['message'] = 'Coupon not found or invalid.';
+        header('location: cart.php');
+        exit();
+    }
+}
+
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -151,13 +179,33 @@ if (isset($_POST['qty'])) {
                                         </div>
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
+                                            <?php
+                                        $discount = 0;
+                                        $temp=0 ;// Default discount is 0
+                                        // Check if the "discount" parameter is present in the URL
+                                        if (isset($_GET['discount'])) {
+                                            $temp = floatval($_GET['discount']);
+                                        }
+                                        $discount=$totalAmount *($temp/100);
+                                        ?>
+                                        <div>Discount <?php
+                                        if($temp!=0){
+                                            echo $temp ."%";
+                                        } ?></div>
+                                        <div>
+                                           - <?php echo $discount; ?> tk
+                                        </div>
+                                    </div>
+
+                                        <div class="d-flex justify-content-between pb-2">
                                             <div>Shipping</div>
                                             <div>40 tk</div>
                                         </div>
+
                                         <div class="d-flex justify-content-between summery-end">
                                             <div>Total</div>
                                             <div>
-                                                <?php echo $totalAmount + 40; ?>
+                                            <?php echo $totalAmount=($totalAmount + 40 - $discount); ?>
                                                 tk
                                             </div>
                                         </div>
@@ -166,9 +214,11 @@ if (isset($_POST['qty'])) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="input-group apply-coupon mt-4">
-                                    <input type="text" placeholder="Coupon Code" class="form-control">
-                                    <button class="btn btn-dark" type="button" id="button-addon2">Apply Coupon</button>
+                                <div class="input-group apply-coupon text text-center">
+                                    <form method="post" action="cart.php"> <!-- Create a separate PHP file for processing the coupon -->
+                                        <input type="text" placeholder="Coupon code" class="form-control d-inline" name="couponCode">
+                                        <button class="btn btn-dark m-3" type="submit" name="applyCouponButton">Apply Coupon</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
