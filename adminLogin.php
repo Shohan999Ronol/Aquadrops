@@ -101,9 +101,9 @@ $result = $conn->query($sql);
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="subcategory.html" class="nav-link">
+								<a href="./admin_view_suscribe.php" class="nav-link">
 									<i class="nav-icon fas fa-file-alt"></i>
-									<p>Sub Category</p>
+									<p>suscriber orders</p>
 								</a>
 							</li>
 							<li class="nav-item">
@@ -219,7 +219,7 @@ $result = $conn->query($sql);
 							<div class="col-lg-4 col-6">							
 								<div class="small-box card">
 									<div class="inner">
-										<h3>$1000</h3>
+										<h3>1000 Taka</h3>
 										<p>Total Sale</p>
 									</div>
 									<div class="icon">
@@ -269,7 +269,7 @@ $result = $conn->query($sql);
 			<!-- /.content-wrapper -->
 			<footer class="main-footer">
 				
-				<strong>Copyright &copy; 2014-2022 AmazingShop All rights reserved.
+				<strong>Copyright &copy;  AQUA DROPS All rights reserved.
 			</footer>
 			
 		<!-- ./wrapper -->
